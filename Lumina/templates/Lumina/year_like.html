@@ -1,0 +1,60 @@
+{% extends 'Lumina/base.html' %}
+{% load static %}
+{% block title %} Year -> Likelihood {% endblock %}
+
+{% block YearLikeli %}
+<center><h1>polarArea Chart</h1></center>
+<center>
+    <div>
+      <canvas style="max-width:; color:white;" id="myChart"></canvas>
+    </div>
+  </center>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+    const ctx = document.getElementById("myChart");
+
+    new Chart(ctx, {
+      type: "polarArea",
+      data: {
+        labels: [{% for d in data  %} "{{d.end_year}}", {% endfor %}],
+        datasets: [
+          {
+            label: "likelihood",
+            data: [{% for d in data  %} "{{d.likelihood}}", {% endfor %}],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+              "rgba(255, 205, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(201, 203, 207, 0.2)",
+            ],
+            borderColor: [
+            'rgb(75, 192, 192)',
+              "rgb(255, 159, 64)",
+              "rgb(255, 205, 86)",
+              "rgb(75, 192, 192)",
+              "rgb(54, 162, 235)",
+              "rgb(153, 102, 255)",
+              "rgb(201, 203, 207)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+          x: {
+            type: 'linear',
+            position: 'bottom'
+          }
+        },
+      },
+    });
+  </script>
+  {% endblock  %}

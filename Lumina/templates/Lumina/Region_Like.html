@@ -1,0 +1,48 @@
+{% extends 'Lumina/base.html' %} {% load static %} {% block title %} Region ->
+Likelihood {% endblock %} {% block RegionLike %}
+<center><h1>Radar Chart</h1></center>
+<center>
+  <div>
+    <canvas style="max-width: ; color: white" id="myChart"></canvas>
+  </div>
+</center>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+  const ctx = document.getElementById("myChart");
+
+  new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels: [{% for d in data  %} "{{d.region}}", {% endfor %}],
+      datasets: [
+        {
+        label: "likelihood",
+        data: [{% for d in data  %} "{{d.likelihood}}", {% endfor %}],
+        fill: true,
+        backgroundColor: [
+        "rgb(255, 99, 132)",
+        "rgb(255, 159, 64)",
+        "rgb(255, 205, 86)",
+        "rgb(75, 192, 192)",
+        "rgb(54, 162, 235)",
+        "rgb(153, 102, 255)",
+        "rgb(201, 203, 207)",
+        ],
+        borderColor: 'rgb(255, 99, 132)',
+        pointBackgroundColor: 'rgb(54, 162, 235)',
+        pointBorderColor: '#fff',
+        borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
+{% endblock %}
