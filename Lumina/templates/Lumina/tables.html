@@ -4,6 +4,12 @@
 
 
 {% block tabledata %}
+<form method="post" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Apply Filters</button>
+</form>
+
 
 <table class="table table-dark table-striped">
     <thead>
